@@ -5,3 +5,10 @@ interface Task {
     isCompleted: boolean;
     totalTime: number;
 }
+
+interface LogEntry {
+    activityType: string;
+    startTime: Date;
+    endTime: Date;
+}
+
