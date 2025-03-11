@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import PomodoroTimer from './components/PomodoroTimer';
-import TaskList from './components/TaskList';
-import Auth from './components/Auth';
-import { auth } from './services/firebase';
-import { getTasks, addTask, updateTask } from './services/taskService';
+import PomodoroTimer from '@/components/PomodoroTimer';
+import TaskList from '@/components/TaskList';
+import Auth from '@/components/Auth';
+import { auth } from '@/services/firebase';
+import { getTasks, addTask, updateTask } from '@/services/taskService';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
