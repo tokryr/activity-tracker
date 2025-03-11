@@ -1,31 +1,46 @@
-import { useState } from 'react'
-import './App.css'
-import PomodoroTimer from './components/PomodoroTimer'
+import { useEffect, useState } from 'react';
+import './App.css';
+import PomodoroTimer from './components/PomodoroTimer';
 import TaskList from './components/TaskList';
-
+import Auth from './components/Auth';
+import { auth } from './services/firebase';
+import { getTasks, addTask, updateTask } from './services/taskService';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const userId = auth?.currentUser?.uid;
 
-  const onUpdateTasks = (updatedTasks: Task[]) => {
-    setTasks(updatedTasks);
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const taskList = await getTasks();
+      setTasks(taskList);
+    };
+
+    fetchTasks();
+  }, []);
+
+  const handleAddTask = async (newTask: Task) => {
+    await addTask({ ...newTask, userId });
+    setTasks(await getTasks());
   };
 
-
+  const handleUpdateTask = async (taskId: string, updatedFields: Partial<Task>) => {
+    await updateTask(taskId, updatedFields);
+    setTasks(await getTasks());
+  };
 
   const logActivity = (activityType: string, startTime: Date, duration: number) => {
     const endTime = new Date(startTime.getTime() + duration * 60000);
-    console.log(`Logging ${activityType}: Start at ${startTime.toISOString()}, End at ${endTime.toISOString()}`);
-    // TODO: Save data upstream
+    console.log(`Logging ${activityType}: ${startTime.toISOString()} - ${endTime.toISOString()}`);
   };
-
 
   return (
     <>
-      <PomodoroTimer logActivity={logActivity}></PomodoroTimer>
-      <TaskList tasks={tasks} onUpdateTasks={onUpdateTasks}></TaskList>
+      <Auth />
+      <PomodoroTimer logActivity={logActivity} />
+      <TaskList tasks={tasks} onUpdateTask={handleUpdateTask} onAddTask={handleAddTask} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
