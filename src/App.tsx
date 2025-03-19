@@ -20,6 +20,11 @@ function App() {
   }, []);
 
   const handleAddTask = async (newTask: Task) => {
+    if (!userId) {
+      console.error('User not authenticated. Cannot add task.');
+      return;
+    }
+
     await addTask({ ...newTask, userId });
     setTasks(await getTasks());
   };
