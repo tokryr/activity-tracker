@@ -27,7 +27,6 @@ const FocusPage = () => {
 
   return (
     <div>
-      <h1>Focus Dashboard</h1>
       <PomodoroTimer logActivity={logActivity} />
       <TaskBoard tasks={tasks} onAddTask={handleAddTask} onUpdateTask={handleUpdateTask} />
     </div>

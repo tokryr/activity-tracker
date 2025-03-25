@@ -59,11 +59,27 @@ const PomodoroTimer = ({ workTime = 25, breakTime = 5, logActivity }: timerProps
   };
 
   return (
-    <div>
-      <h1>Pomodoro Timer</h1>
-      <p>{formatTime(secondsLeft)}</p>
-      <button onClick={handleStartPause}>{isActive ? 'Pause' : 'Start'}</button>
-      <button onClick={handleReset}>Reset</button>
+    <div className="pomodoro-container">
+      <h2 className="pomodoro-title">{isWorkTime ? 'Work Time' : 'Break Time'}</h2>
+
+      <div className="pomodoro-timer">{formatTime(secondsLeft)}</div>
+
+      <div className="pomodoro-status">
+        {isActive ? `${isWorkTime ? 'Working' : 'Taking a break'}...` : 'Timer paused'}
+      </div>
+
+      <div className="pomodoro-controls">
+        <button
+          className={`pomodoro-button ${isActive ? 'pause' : 'start'}`}
+          onClick={handleStartPause}
+        >
+          {isActive ? 'Pause' : 'Start'}
+        </button>
+
+        <button className="pomodoro-button reset" onClick={handleReset}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 };
