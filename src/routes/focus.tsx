@@ -1,14 +1,19 @@
 import { createRoute } from '@tanstack/react-router';
 import { Route as RootRoute } from './__root';
-import WelcomePage from '@/pages/WelcomePage';
+import { protectRoute } from '@/utils/routeUtils';
+import FocusPage from '@/pages/FocusPage';
 import { getTasks } from '@/services/taskService';
 
 export const Route = createRoute({
   getParentRoute: () => RootRoute,
-  path: '/',
+  path: '/focus',
+  component: FocusPage,
+  beforeLoad: async () => {
+    await protectRoute();
+    return {};
+  },
   loader: async () => {
     const tasks = await getTasks();
     return { tasks };
   },
-  component: WelcomePage,
 });

@@ -28,7 +28,7 @@ const LoginPage = () => {
         return;
       }
 
-      navigate({ to: '/' }); // Redirect to the home page after successful login/register
+      navigate({ to: '/login' }); // Redirect to the home page after successful login/register
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError('An error occurred. Please try again.');

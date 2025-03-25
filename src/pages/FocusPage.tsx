@@ -1,12 +1,12 @@
 import { useLoaderData } from '@tanstack/react-router';
 import { useState } from 'react';
-import TaskList from '@/components/TaskList';
+import TaskBoard from '@/components/TaskBoard';
 import PomodoroTimer from '@/components/PomodoroTimer';
 import { addTask, updateTask, getTasks } from '@/services/taskService';
 
 const FocusPage = () => {
   // Loader data provides initial tasks
-  const { tasks: initialTasks } = useLoaderData({ from: '/' });
+  const { tasks: initialTasks } = useLoaderData({ from: '/focus' });
   const [tasks, setTasks] = useState(initialTasks);
 
   const handleAddTask = async (newTask: Task) => {
@@ -29,7 +29,7 @@ const FocusPage = () => {
     <div>
       <h1>Focus Dashboard</h1>
       <PomodoroTimer logActivity={logActivity} />
-      <TaskList tasks={tasks} onAddTask={handleAddTask} onUpdateTask={handleUpdateTask} />
+      <TaskBoard tasks={tasks} onAddTask={handleAddTask} onUpdateTask={handleUpdateTask} />
     </div>
   );
 };

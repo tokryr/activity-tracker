@@ -10,7 +10,7 @@ const db = getFirestore();
 // Set the region to europe-north1, does not seem to working while deploying when only in firebase.json
 const region = 'europe-north1';
 
-exports.getTasks = onRequest({ region }, async (_req: Request, res: Response) => {
+exports.getTasks = onRequest({ region, cors: true }, async (_req: Request, res: Response) => {
   try {
     const tasksSnapshot = await db.collection('tasks').get();
     const tasks = tasksSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));

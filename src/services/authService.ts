@@ -1,11 +1,5 @@
 import { auth } from './firebase';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  User,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 export const registerWithEmail = async (email: string, password: string) => {
   try {
@@ -33,8 +27,4 @@ export const logout = async () => {
   } catch (error) {
     console.error('Logout failed:', error);
   }
-};
-
-export const authStateListener = (callback: (user: User | null) => void) => {
-  return onAuthStateChanged(auth, callback);
 };

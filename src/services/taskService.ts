@@ -16,6 +16,7 @@ const getAuthHeaders = async () => {
 export const getTasks = async (): Promise<Task[]> => {
   try {
     const headers = await getAuthHeaders();
+
     const response = await fetch(`${API_BASE_URL}/getTasks`, {
       method: 'GET',
       headers,

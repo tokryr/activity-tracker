@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import TaskItem from './TaskItem';
 
-interface TaskListProps {
+interface TaskBoardProps {
   tasks: Task[];
   onUpdateTask: (taskId: string, updatedFields: Partial<Task>) => void;
   onAddTask: (newTask: Task) => void;
 }
 
-const TaskList = ({ tasks, onUpdateTask, onAddTask }: TaskListProps) => {
+const TaskBoard = ({ tasks, onUpdateTask, onAddTask }: TaskBoardProps) => {
   const [newTaskText, setNewTaskText] = useState('');
 
   const handleAddTask = () => {
@@ -40,4 +40,4 @@ const TaskList = ({ tasks, onUpdateTask, onAddTask }: TaskListProps) => {
   );
 };
 
-export default TaskList;
+export default TaskBoard;

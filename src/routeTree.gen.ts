@@ -11,14 +11,28 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as StatsImport } from './routes/stats'
 import { Route as LoginImport } from './routes/login'
+import { Route as FocusImport } from './routes/focus'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
+const StatsRoute = StatsImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FocusRoute = FocusImport.update({
+  id: '/focus',
+  path: '/focus',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +53,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/focus': {
+      id: '/focus'
+      path: '/focus'
+      fullPath: '/focus'
+      preLoaderRoute: typeof FocusImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +81,47 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/focus': typeof FocusRoute
   '/login': typeof LoginRoute
+  '/stats': typeof StatsRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/focus': typeof FocusRoute
   '/login': typeof LoginRoute
+  '/stats': typeof StatsRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/focus': typeof FocusRoute
   '/login': typeof LoginRoute
+  '/stats': typeof StatsRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login'
+  fullPaths: '/' | '/focus' | '/login' | '/stats'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login'
-  id: '__root__' | '/' | '/login'
+  to: '/' | '/focus' | '/login' | '/stats'
+  id: '__root__' | '/' | '/focus' | '/login' | '/stats'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FocusRoute: typeof FocusRoute
   LoginRoute: typeof LoginRoute
+  StatsRoute: typeof StatsRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FocusRoute: FocusRoute,
   LoginRoute: LoginRoute,
+  StatsRoute: StatsRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +135,22 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/login"
+        "/focus",
+        "/login",
+        "/stats"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/focus": {
+      "filePath": "focus.tsx"
+    },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/stats": {
+      "filePath": "stats.tsx"
     }
   }
 }
