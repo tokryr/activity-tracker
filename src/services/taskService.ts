@@ -17,7 +17,7 @@ export const getTasks = async (): Promise<Task[]> => {
   try {
     const headers = await getAuthHeaders();
 
-    const response = await fetch(`${API_BASE_URL}/getTasks`, {
+    const response = await fetch(`${API_BASE_URL}/api/tasks`, {
       method: 'GET',
       headers,
     });
@@ -38,7 +38,7 @@ export const getTasks = async (): Promise<Task[]> => {
 export const addTask = async (taskData: Task): Promise<Task | null> => {
   try {
     const headers = await getAuthHeaders();
-    const response = await fetch(`${API_BASE_URL}/addTask`, {
+    const response = await fetch(`${API_BASE_URL}/api/tasks`, {
       method: 'POST',
       headers,
       body: JSON.stringify(taskData),
@@ -57,31 +57,36 @@ export const addTask = async (taskData: Task): Promise<Task | null> => {
   }
 };
 
-export const updateTask = async (id: string, taskData: Partial<Task>): Promise<boolean> => {
+export const updateTask = async (
+  taskId: string,
+  updatedFields: Partial<Task>
+): Promise<Task | null> => {
   try {
     const headers = await getAuthHeaders();
-    const response = await fetch(`${API_BASE_URL}/updateTask/${id}`, {
-      method: 'PUT',
+    const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
+      method: 'PATCH',
       headers,
-      body: JSON.stringify(taskData),
+      body: JSON.stringify(updatedFields),
     });
 
     if (!response.ok) {
       console.error('Failed to update task:', response.statusText);
-      return false;
+      return null;
     }
 
-    return true;
+    const updatedTask = await response.json();
+    return updatedTask;
   } catch (error) {
     console.error('Error updating task:', error);
-    return false;
+    return null;
   }
 };
 
-export const deleteTask = async (id: string): Promise<boolean> => {
+export const deleteTask = async (taskId: string): Promise<boolean> => {
   try {
     const headers = await getAuthHeaders();
-    const response = await fetch(`${API_BASE_URL}/deleteTask/${id}`, {
+
+    const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
       method: 'DELETE',
       headers,
     });
