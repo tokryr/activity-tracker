@@ -4,7 +4,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Disable direct access; everything should go through Cloud Functions
     match /{document=**} {
-      allow read, write: false;
+      allow read, write: if false;
     }
   }
 }
