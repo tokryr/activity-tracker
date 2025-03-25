@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 const WelcomePage = () => {
   const { user } = useAuth();

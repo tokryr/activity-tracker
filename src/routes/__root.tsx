@@ -1,6 +1,6 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
-import { AuthProvider, useAuth } from '@/context/AuthContext';
-import { auth } from '@/services/firebase';
+import { AuthProvider } from '@/context/AuthContextProvider';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Route = createRootRoute({
   component: () => (
@@ -11,7 +11,7 @@ export const Route = createRootRoute({
 });
 
 const RootComponent = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, logout } = useAuth();
 
   return (
     <>
@@ -27,7 +27,7 @@ const RootComponent = () => {
             <Link to="/stats" className="[&.active]:font-bold">
               Stats
             </Link>
-            <button onClick={() => auth.signOut()}>Logout</button>
+            <button onClick={() => logout()}>Logout</button>
           </>
         ) : (
           <Link to="/login" className="[&.active]:font-bold">
