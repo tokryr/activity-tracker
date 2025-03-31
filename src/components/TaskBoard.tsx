@@ -25,7 +25,6 @@ const TaskBoard = ({
       userId: '',
       title: newTaskText,
       description: newTaskDescription,
-      isActive: false,
       isCompleted: false,
       isRecurring: false,
       totalTimeSpent: 0,
