@@ -6,7 +6,7 @@ interface TaskItemProps {
 }
 
 const TaskItem = ({ task, isActive, onUpdateTask, onSetActiveTask }: TaskItemProps) => {
-  const itemClasses = `task-item ${task.isActive ? 'task-item-active' : ''} ${
+  const itemClasses = `task-item ${isActive ? 'task-item-active' : ''} ${
     task.isCompleted ? 'task-item-completed' : ''
   }`;
 
@@ -66,11 +66,11 @@ const TaskItem = ({ task, isActive, onUpdateTask, onSetActiveTask }: TaskItemPro
       <div className="task-actions">
         <button
           onClick={handleToggleActive}
-          className={task.isActive ? 'task-btn task-btn-active' : 'task-btn task-btn-inactive'}
+          className={isActive ? 'task-btn task-btn-active' : 'task-btn task-btn-inactive'}
           disabled={task.isCompleted}
-          title={task.isActive ? 'Mark as inactive' : 'Mark as active'}
+          title={isActive ? 'Mark as inactive' : 'Mark as active'}
         >
-          {task.isActive ? 'Active' : 'Inactive'}
+          {isActive ? 'Active' : 'Inactive'}
         </button>
       </div>
     </li>
