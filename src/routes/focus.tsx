@@ -13,7 +13,10 @@ export const Route = createRoute({
     return {};
   },
   loader: async () => {
-    const tasks = await getTasks();
-    return { tasks };
+    const taskData = await getTasks();
+    return {
+      tasks: taskData.tasks,
+      activeTaskId: taskData.activeTaskId,
+    };
   },
 });

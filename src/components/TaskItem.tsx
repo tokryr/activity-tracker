@@ -1,28 +1,30 @@
 interface TaskItemProps {
   task: Task;
+  isActive: boolean;
   onUpdateTask: (taskId: string, updatedFields: Partial<Task>) => void;
+  onSetActiveTask: (taskId: string | null) => void;
 }
 
-const TaskItem = ({ task, onUpdateTask }: TaskItemProps) => {
-  const itemClasses = `task-item ${task.isActive ? 'task-item-active' : ''} ${
+const TaskItem = ({ task, isActive, onUpdateTask, onSetActiveTask }: TaskItemProps) => {
+  const itemClasses = `task-item ${isActive ? 'task-item-active' : ''} ${
     task.isCompleted ? 'task-item-completed' : ''
   }`;
 
-  console.log('task', task);
-
   const handleToggleActive = () => {
-    onUpdateTask(task.id!, {
-      isActive: !task.isActive,
-      // If making active and was completed, uncomplete it
-      isCompleted: task.isActive ? task.isCompleted : false,
-    });
+    if (isActive) {
+      onSetActiveTask(null); // Deactivate if already active
+    } else {
+      onSetActiveTask(task.id!); // Activate this task
+    }
   };
 
   const handleComplete = () => {
     onUpdateTask(task.id!, {
       isCompleted: true,
-      isActive: false,
     });
+    if (isActive) {
+      onSetActiveTask(null);
+    }
   };
 
   const handleUncomplete = () => {
@@ -64,11 +66,11 @@ const TaskItem = ({ task, onUpdateTask }: TaskItemProps) => {
       <div className="task-actions">
         <button
           onClick={handleToggleActive}
-          className={task.isActive ? 'task-btn task-btn-active' : 'task-btn task-btn-inactive'}
+          className={isActive ? 'task-btn task-btn-active' : 'task-btn task-btn-inactive'}
           disabled={task.isCompleted}
-          title={task.isActive ? 'Mark as inactive' : 'Mark as active'}
+          title={isActive ? 'Mark as inactive' : 'Mark as active'}
         >
-          {task.isActive ? 'Active' : 'Inactive'}
+          {isActive ? 'Active' : 'Inactive'}
         </button>
       </div>
     </li>

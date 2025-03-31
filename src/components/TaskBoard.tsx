@@ -3,11 +3,19 @@ import TaskItem from './TaskItem';
 
 interface TaskBoardProps {
   tasks: Task[];
+  activeTaskId: string | null;
   onUpdateTask: (taskId: string, updatedFields: Partial<Task>) => void;
   onAddTask: (newTask: Task) => void;
+  onSetActiveTask: (taskId: string | null) => void;
 }
 
-const TaskBoard = ({ tasks, onUpdateTask, onAddTask }: TaskBoardProps) => {
+const TaskBoard = ({
+  tasks,
+  activeTaskId,
+  onUpdateTask,
+  onAddTask,
+  onSetActiveTask,
+}: TaskBoardProps) => {
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
 
@@ -17,7 +25,6 @@ const TaskBoard = ({ tasks, onUpdateTask, onAddTask }: TaskBoardProps) => {
       userId: '',
       title: newTaskText,
       description: newTaskDescription,
-      isActive: false,
       isCompleted: false,
       isRecurring: false,
       totalTimeSpent: 0,
@@ -66,7 +73,13 @@ const TaskBoard = ({ tasks, onUpdateTask, onAddTask }: TaskBoardProps) => {
         ) : (
           <ul className="task-list">
             {tasks.map((task) => (
-              <TaskItem key={task.id} task={task} onUpdateTask={onUpdateTask} />
+              <TaskItem
+                key={task.id}
+                task={task}
+                isActive={task.id === activeTaskId}
+                onUpdateTask={onUpdateTask}
+                onSetActiveTask={onSetActiveTask}
+              />
             ))}
           </ul>
         )}

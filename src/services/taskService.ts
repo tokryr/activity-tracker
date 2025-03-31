@@ -13,7 +13,7 @@ const getAuthHeaders = async () => {
   };
 };
 
-export const getTasks = async (): Promise<Task[]> => {
+export const getTasks = async (): Promise<{ tasks: Task[]; activeTaskId: string | null }> => {
   try {
     const headers = await getAuthHeaders();
 
@@ -24,14 +24,17 @@ export const getTasks = async (): Promise<Task[]> => {
 
     if (!response.ok) {
       console.error('Failed to fetch tasks:', response.statusText);
-      return [];
+      return { tasks: [], activeTaskId: null };
     }
 
-    const tasks = await response.json();
-    return tasks;
+    const data = await response.json();
+    return {
+      tasks: data.tasks || [],
+      activeTaskId: data.activeTaskId,
+    };
   } catch (error) {
     console.error('Error fetching tasks:', error);
-    return [];
+    return { tasks: [], activeTaskId: null };
   }
 };
 
@@ -99,6 +102,28 @@ export const deleteTask = async (taskId: string): Promise<boolean> => {
     return true;
   } catch (error) {
     console.error('Error deleting task:', error);
+    return false;
+  }
+};
+
+export const setActiveTask = async (taskId: string | null): Promise<boolean> => {
+  try {
+    const headers = await getAuthHeaders();
+
+    const response = await fetch(`${API_BASE_URL}/api/activeTask`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ taskId }),
+    });
+
+    if (!response.ok) {
+      console.error('Failed to set active task:', response.statusText);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error setting active task:', error);
     return false;
   }
 };
