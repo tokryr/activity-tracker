@@ -1,20 +1,36 @@
 ## 📌 Activity Tracker
+
 A simple web app to track tasks and productivity using Firebase and React. The app features task management, a Pomodoro timer, and authentication via Firebase.
 
 ## 🚀 Features
-✅ Task Management: Add, update, and track your tasks.<br>
-✅ Pomodoro Timer: Manage focus sessions with a built-in Pomodoro timer.<br>
-✅ Firebase Authentication: Sign up and log in using email & password.<br>
-✅ Firestore Database: Store and retrieve tasks in real time.<br>
-React Router Navigation: Handles login and main task management.<br>
+
+✅ Task Management: Add, update, and track your tasks <br>
+✅ Pomodoro Timer: Stay focused with built-in work/break cycles<br>
+✅ Firebase Authentication: Secure login and registration<br>
+✅ Cloud Functions API: Backend processing with Express<br>
+✅ Active Task Tracking: Focus on one task at a time<br>
+✅ CI/CD Pipeline: Automatic deployment with GitHub Actions<br>
+
+## 🛠️ Tech Stack
+
+⚛️ Frontend: React 19, Vite, TypeScript, TanStack Router
+🎨 Styling: Tailwind CSS 4.0
+🔥 Backend: Firebase Cloud Functions, Express
+🗄️ Database: Firestore
+🔐 Authentication: Firebase Auth
+🚀 Deployment: Firebase Hosting
+⚙️ CI/CD: GitHub Actions
 
 ## 🚀 Planned Features: A statistics page to track productivity trends.
-📂 Tech Stack<br>
-⚛️ React (Vite)<br>
-🔥 Firebase Auth & Firestore<br>
-🛠️ React Router (wip)<br>
-🎨 Tailwind (not yet)<br>
-📦 Installation<br>
+
+Statistics Dashboard for productivity analytics <br>
+Enhanced Pomodoro features (custom timers, notifications) <br>
+Task categories and tags <br>
+Weekly and monthly progress reports <br>
+Task priority settings <br>
+
+## 📦 Installation
+
 1️⃣ Clone the Repository<br>
 
 ```
@@ -51,16 +67,9 @@ npm run dev
 Then, open http://localhost:5173/ in your browser.
 
 ## 🖥️ Usage
+
 1️⃣ Sign up/Login with an email and password.<br>
 2️⃣ Add Tasks to track work sessions.<br>
 3️⃣ Use the Pomodoro Timer to manage focus time.<br>
 4️⃣ Mark tasks as complete when finished.<br>
 5️⃣ (Future) View Statistics to analyze productivity trends.<br>
-
-## 📌 TODO
-Login Page<br>
-Protected Routes<br>
-Track and save more statistics<br>
-Statistics Page<br>
-UI/UX Enhancements<br>
-Create and update wiki<br>
