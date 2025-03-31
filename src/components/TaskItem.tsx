@@ -1,28 +1,30 @@
 interface TaskItemProps {
   task: Task;
+  isActive: boolean;
   onUpdateTask: (taskId: string, updatedFields: Partial<Task>) => void;
+  onSetActiveTask: (taskId: string | null) => void;
 }
 
-const TaskItem = ({ task, onUpdateTask }: TaskItemProps) => {
+const TaskItem = ({ task, isActive, onUpdateTask, onSetActiveTask }: TaskItemProps) => {
   const itemClasses = `task-item ${task.isActive ? 'task-item-active' : ''} ${
     task.isCompleted ? 'task-item-completed' : ''
   }`;
 
-  console.log('task', task);
-
   const handleToggleActive = () => {
-    onUpdateTask(task.id!, {
-      isActive: !task.isActive,
-      // If making active and was completed, uncomplete it
-      isCompleted: task.isActive ? task.isCompleted : false,
-    });
+    if (isActive) {
+      onSetActiveTask(null); // Deactivate if already active
+    } else {
+      onSetActiveTask(task.id!); // Activate this task
+    }
   };
 
   const handleComplete = () => {
     onUpdateTask(task.id!, {
       isCompleted: true,
-      isActive: false,
     });
+    if (isActive) {
+      onSetActiveTask(null);
+    }
   };
 
   const handleUncomplete = () => {
